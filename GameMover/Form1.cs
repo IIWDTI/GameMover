@@ -155,19 +155,29 @@ namespace GameMover
         public void DoCopyWork(string _source, string _dest, ComboboxItem _comboboxItem)
         {
 
-
-            File.Copy(_comboboxItem.Value, _dest + "\\steamapps\\" + Path.GetFileName(_comboboxItem.Value), true);
-
-
-
-            Copy(_source + "\\steamapps\\common\\" + _comboboxItem.Text, _dest + "\\steamapps\\common\\" + _comboboxItem.Text);
+            try
+            {
+                File.Copy(_comboboxItem.Value, _dest + "\\steamapps\\" + Path.GetFileName(_comboboxItem.Value), true);
 
 
 
-            Directory.Delete(_source + "\\steamapps\\common\\" + _comboboxItem.Text, true);
-            File.Delete(_comboboxItem.Value);
+                Copy(_source + "\\steamapps\\common\\" + _comboboxItem.Text, _dest + "\\steamapps\\common\\" + _comboboxItem.Text);
 
-            MessageBox.Show("Done!");
+
+
+                Directory.Delete(_source + "\\steamapps\\common\\" + _comboboxItem.Text, true);
+                File.Delete(_comboboxItem.Value);
+
+                MessageBox.Show("Done!");
+
+            }
+            catch
+            {
+                //Temp fix for crash when moving a folder in use.
+                MessageBox.Show("Error moving game.");
+
+            }
+
 
             Invoke(new Action(() =>
             {
