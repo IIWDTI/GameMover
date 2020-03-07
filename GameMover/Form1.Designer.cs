@@ -28,25 +28,25 @@
         /// </summary>
         private void InitializeComponent()
         {
-            this.comboBox1 = new System.Windows.Forms.ComboBox();
+            this.cb_Source = new System.Windows.Forms.ComboBox();
             this.label1 = new System.Windows.Forms.Label();
-            this.comboBox2 = new System.Windows.Forms.ComboBox();
+            this.cb_Game = new System.Windows.Forms.ComboBox();
             this.label2 = new System.Windows.Forms.Label();
-            this.comboBox3 = new System.Windows.Forms.ComboBox();
+            this.cb_Dest = new System.Windows.Forms.ComboBox();
             this.label3 = new System.Windows.Forms.Label();
             this.btnMoveGame = new System.Windows.Forms.Button();
             this.progressBar1 = new System.Windows.Forms.ProgressBar();
             this.label4 = new System.Windows.Forms.Label();
             this.SuspendLayout();
             // 
-            // comboBox1
+            // cb_Source
             // 
-            this.comboBox1.FormattingEnabled = true;
-            this.comboBox1.Location = new System.Drawing.Point(75, 29);
-            this.comboBox1.Name = "comboBox1";
-            this.comboBox1.Size = new System.Drawing.Size(302, 21);
-            this.comboBox1.TabIndex = 0;
-            this.comboBox1.SelectedIndexChanged += new System.EventHandler(this.comboBox1_SelectedIndexChanged);
+            this.cb_Source.FormattingEnabled = true;
+            this.cb_Source.Location = new System.Drawing.Point(75, 29);
+            this.cb_Source.Name = "cb_Source";
+            this.cb_Source.Size = new System.Drawing.Size(302, 21);
+            this.cb_Source.TabIndex = 0;
+            this.cb_Source.SelectedIndexChanged += new System.EventHandler(this.comboBox1_SelectedIndexChanged);
             // 
             // label1
             // 
@@ -57,16 +57,16 @@
             this.label1.TabIndex = 1;
             this.label1.Text = "Path:";
             // 
-            // comboBox2
+            // cb_Game
             // 
-            this.comboBox2.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
-            this.comboBox2.Enabled = false;
-            this.comboBox2.FormattingEnabled = true;
-            this.comboBox2.Location = new System.Drawing.Point(75, 84);
-            this.comboBox2.Name = "comboBox2";
-            this.comboBox2.Size = new System.Drawing.Size(302, 21);
-            this.comboBox2.TabIndex = 3;
-            this.comboBox2.SelectedIndexChanged += new System.EventHandler(this.comboBox2_SelectedIndexChanged);
+            this.cb_Game.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
+            this.cb_Game.Enabled = false;
+            this.cb_Game.FormattingEnabled = true;
+            this.cb_Game.Location = new System.Drawing.Point(75, 84);
+            this.cb_Game.Name = "cb_Game";
+            this.cb_Game.Size = new System.Drawing.Size(302, 21);
+            this.cb_Game.TabIndex = 3;
+            this.cb_Game.SelectedIndexChanged += new System.EventHandler(this.comboBox2_SelectedIndexChanged);
             // 
             // label2
             // 
@@ -77,15 +77,15 @@
             this.label2.TabIndex = 4;
             this.label2.Text = "Game:";
             // 
-            // comboBox3
+            // cb_Dest
             // 
-            this.comboBox3.Enabled = false;
-            this.comboBox3.FormattingEnabled = true;
-            this.comboBox3.Location = new System.Drawing.Point(75, 136);
-            this.comboBox3.Name = "comboBox3";
-            this.comboBox3.Size = new System.Drawing.Size(302, 21);
-            this.comboBox3.TabIndex = 5;
-            this.comboBox3.SelectedIndexChanged += new System.EventHandler(this.comboBox3_SelectedIndexChanged);
+            this.cb_Dest.Enabled = false;
+            this.cb_Dest.FormattingEnabled = true;
+            this.cb_Dest.Location = new System.Drawing.Point(75, 136);
+            this.cb_Dest.Name = "cb_Dest";
+            this.cb_Dest.Size = new System.Drawing.Size(302, 21);
+            this.cb_Dest.TabIndex = 5;
+            this.cb_Dest.SelectedIndexChanged += new System.EventHandler(this.comboBox3_SelectedIndexChanged);
             // 
             // label3
             // 
@@ -131,11 +131,11 @@
             this.Controls.Add(this.progressBar1);
             this.Controls.Add(this.btnMoveGame);
             this.Controls.Add(this.label3);
-            this.Controls.Add(this.comboBox3);
+            this.Controls.Add(this.cb_Dest);
             this.Controls.Add(this.label2);
-            this.Controls.Add(this.comboBox2);
+            this.Controls.Add(this.cb_Game);
             this.Controls.Add(this.label1);
-            this.Controls.Add(this.comboBox1);
+            this.Controls.Add(this.cb_Source);
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedSingle;
             this.MaximizeBox = false;
             this.Name = "Form1";
@@ -148,11 +148,11 @@
 
         #endregion
 
-        private System.Windows.Forms.ComboBox comboBox1;
+        private System.Windows.Forms.ComboBox cb_Source;
         private System.Windows.Forms.Label label1;
-        private System.Windows.Forms.ComboBox comboBox2;
+        private System.Windows.Forms.ComboBox cb_Game;
         private System.Windows.Forms.Label label2;
-        private System.Windows.Forms.ComboBox comboBox3;
+        private System.Windows.Forms.ComboBox cb_Dest;
         private System.Windows.Forms.Label label3;
         private System.Windows.Forms.Button btnMoveGame;
         private System.Windows.Forms.ProgressBar progressBar1;

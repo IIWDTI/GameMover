@@ -13,7 +13,7 @@ namespace GameMover
         {
             InitializeComponent();
 
-            FillDropDownList(comboBox1);
+            FillDropDownList(cb_Source);
         }
 
         public void FillDropDownList(ComboBox _comboBox)
@@ -51,12 +51,12 @@ namespace GameMover
 
         private void comboBox1_SelectedIndexChanged(object sender, EventArgs e)
         {
-            FillDropDownList(comboBox3);
-            comboBox3.Items.Remove(comboBox1.Text);
+            FillDropDownList(cb_Dest);
+            cb_Dest.Items.Remove(cb_Source.Text);
 
-            comboBox2.Items.Clear();
+            cb_Game.Items.Clear();
 
-            string[] acffiles = Directory.GetFiles(comboBox1.Text + "\\SteamApps", "*.acf");
+            string[] acffiles = Directory.GetFiles(cb_Source.Text + "\\SteamApps", "*.acf");
             foreach (string file in acffiles)
             {
                 VProperty volvo = VdfConvert.Deserialize(File.ReadAllText(file));
@@ -65,43 +65,43 @@ namespace GameMover
                 ComboboxItem comboboxItem = new ComboboxItem();
                 comboboxItem.Text = game;
                 comboboxItem.Value = file;
-                comboBox2.Items.Add(comboboxItem);
+                cb_Game.Items.Add(comboboxItem);
             }
 
-            comboBox2.Enabled = true;
+            cb_Game.Enabled = true;
         }
 
         private void comboBox2_SelectedIndexChanged(object sender, EventArgs e)
         {
-            comboBox3.Enabled = true;
+            cb_Dest.Enabled = true;
         }
 
         private void btnMoveGame_Click(object sender, EventArgs e)
         {
             
 
-            comboBox1.Enabled = false;
-            comboBox2.Enabled = false;
-            comboBox3.Enabled = false;
+            cb_Source.Enabled = false;
+            cb_Game.Enabled = false;
+            cb_Dest.Enabled = false;
             btnMoveGame.Enabled = false;
 
-            ComboboxItem comboboxItem = (ComboboxItem)comboBox2.SelectedItem;
+            ComboboxItem comboboxItem = (ComboboxItem)cb_Game.SelectedItem;
 
-            DirectoryInfo di = Directory.CreateDirectory(comboBox1.Text + "\\steamapps\\common\\" + comboboxItem.Text);
+            DirectoryInfo di = Directory.CreateDirectory(cb_Source.Text + "\\steamapps\\common\\" + comboboxItem.Text);
             long foldersize = DirSize(di);
-            long freespace = GetTotalFreeSpace(Directory.GetDirectoryRoot(comboBox3.Text));
+            long freespace = GetTotalFreeSpace(Directory.GetDirectoryRoot(cb_Dest.Text));
 
             if (foldersize <= freespace)
             {
-                int fileCount = Directory.GetFiles(comboBox1.Text + "\\steamapps\\common\\" + comboboxItem.Text, "*.*", SearchOption.AllDirectories).Length;
+                int fileCount = Directory.GetFiles(cb_Source.Text + "\\steamapps\\common\\" + comboboxItem.Text, "*.*", SearchOption.AllDirectories).Length;
 
                 progressBar1.Maximum = fileCount;
                 label4.Text = "0/" + fileCount;
 
 
 
-                string combobox1s = comboBox1.Text;
-                string combobox3s = comboBox3.Text;
+                string combobox1s = cb_Source.Text;
+                string combobox3s = cb_Dest.Text;
                 Thread t = new Thread(() => DoCopyWork(combobox1s, combobox3s, comboboxItem));
                 t.Start();
 
@@ -109,9 +109,9 @@ namespace GameMover
             else
             {
                 MessageBox.Show("Not enough free space on destination drive!");
-                comboBox1.Enabled = true;
-                comboBox2.Enabled = true;
-                comboBox3.Enabled = true;
+                cb_Source.Enabled = true;
+                cb_Game.Enabled = true;
+                cb_Dest.Enabled = true;
                 btnMoveGame.Enabled = true;
             }
 
@@ -152,28 +152,28 @@ namespace GameMover
             return size;
         }
 
-        public void DoCopyWork(string _comboBox1, string _comboBox3, ComboboxItem _comboboxItem)
+        public void DoCopyWork(string _source, string _dest, ComboboxItem _comboboxItem)
         {
 
 
-            File.Copy(_comboboxItem.Value, _comboBox3 + "\\steamapps\\" + Path.GetFileName(_comboboxItem.Value), true);
+            File.Copy(_comboboxItem.Value, _dest + "\\steamapps\\" + Path.GetFileName(_comboboxItem.Value), true);
 
 
 
-            Copy(_comboBox1 + "\\steamapps\\common\\" + _comboboxItem.Text, _comboBox3 + "\\steamapps\\common\\" + _comboboxItem.Text);
+            Copy(_source + "\\steamapps\\common\\" + _comboboxItem.Text, _dest + "\\steamapps\\common\\" + _comboboxItem.Text);
 
 
 
-            Directory.Delete(_comboBox1 + "\\steamapps\\common\\" + _comboboxItem.Text, true);
+            Directory.Delete(_source + "\\steamapps\\common\\" + _comboboxItem.Text, true);
             File.Delete(_comboboxItem.Value);
 
             MessageBox.Show("Done!");
 
             Invoke(new Action(() =>
             {
-                comboBox1.Enabled = true;
-                comboBox2.Enabled = true;
-                comboBox3.Enabled = true;
+                cb_Source.Enabled = true;
+                cb_Game.Enabled = true;
+                cb_Dest.Enabled = true;
                 btnMoveGame.Enabled = true;
             }));
 
